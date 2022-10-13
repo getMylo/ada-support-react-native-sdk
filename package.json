@@ -1,0 +1,26 @@
+{
+  "name": "@ada-support/react-native-sdk",
+  "version": "2.2.0",
+  "description": "The Ada ReactNative is a small framework that is used to embed your Ada Chat bot into your ReactNative application.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react",
+    "react-native",
+    "ada.support"
+  ],
+  "author": "",
+  "license": "ISC",
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*",
+    "react-native-webview": "^10.3.2",
+    "rn-fetch-blob": "^0.10.13"
+  },
+  "dependencies": {
+    "prop-types": "^15.7.2",
+    "rn-fetch-blob": "^0.10.13"
+  }
+}

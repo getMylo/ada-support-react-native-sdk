@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <script async id="__ada" src="https://static.ada.support/embed2.js" data-lazy onload="onLoadHandler()">
+    </script>
+
+    <script>
+        const MESSAGE_SCRIPT_LOADED = `MESSAGE_SCRIPT_LOADED`
+        const MESSAGE_ADA_READY = `MESSAGE_ADA_READY`
+        const MESSAGE_CHATTER_AUTH = `MESSAGE_CHATTER_AUTH`
+        const MESSAGE_EVENT = `MESSAGE_EVENT`
+        const END_CONVERSATION_EVENT = `END_CONVERSATION_EVENT`
+
+        function onLoadHandler() {
+            postMessage(MESSAGE_SCRIPT_LOADED)
+        }
+
+        function initializeEmbed(handle, cluster, greetings, styles, language, metaFields, sensitiveMetaFields){
+            adaEmbed.start({
+                handle: handle,
+                language: language,
+                parentElement: "content_frame",
+                cluster: cluster,
+                greeting: greetings,
+                styles: styles,
+                metaFields: {
+                    ...metaFields,
+                    sdkType: "REACTNATIVE",
+                    sdkSupportsDownloadLink: true,
+                },
+                sensitiveMetaFields: sensitiveMetaFields,
+                adaReadyCallback: () => {
+                    postMessage(MESSAGE_ADA_READY)
+                },
+                zdChatterAuthCallback: (callback) => {
+                    window.zdChatterAuthCallback = callback;
+                    postMessage(MESSAGE_CHATTER_AUTH)
+                },
+                eventCallbacks: {
+                    "*": (event) => postMessage(MESSAGE_EVENT, event)
+                }
+            });
+
+            adaEmbed.subscribeEvent("ada:end_conversation", (data, context) => {
+                postMessage(END_CONVERSATION_EVENT, data)
+            });
+        }
+
+        function setMetaFields(metaFields){
+            adaEmbed.setMetaFields(metaFields)
+        }
+        
+        function setSensitiveMetaFields(sensitiveMetaFields){
+            adaEmbed.setSensitiveMetaFields(sensitiveMetaFields)
+        }
+
+        function deleteHistory(){
+            adaEmbed.deleteHistory();
+        }
+
+        function reset(resetSettings) {
+            if (resetSettings != null) {
+                adaEmbed.reset(resetSettings)
+            } else {
+                adaEmbed.reset()
+            }
+        }
+
+        function sendAuthToken(token) {
+            if (window.zdChatterAuthCallback != null) {
+                window.zdChatterAuthCallback(token)
+            }
+        }
+
+        function postMessage(name, data) {
+            window.ReactNativeWebView.postMessage(JSON.stringify({
+                name: name,
+                data: data
+            }))
+        }
+
+    </script>
+</head>
+
+<body style="position: absolute; bottom: 0px; top: 0px; left: 0px; right: 0px;">
+<div id="content_frame" style="height: 100%; width: 100%" />
+</body>
+
+</html>

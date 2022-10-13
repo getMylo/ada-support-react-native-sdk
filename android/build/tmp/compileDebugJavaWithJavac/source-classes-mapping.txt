@@ -1,0 +1,4 @@
+support/ada/embed/AdaPackage.java
+ support.ada.embed.AdaPackage
+support/ada/embed/BuildConfig.java
+ support.ada.embed.BuildConfig
