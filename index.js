@@ -1,5 +1,6 @@
 import React from "react";
 import {WebView} from 'react-native-webview';
+import RNBlobUtil from 'react-native-blob-util';
 import PropTypes from 'prop-types';
 import {Platform, Linking} from 'react-native';
 
@@ -63,20 +64,32 @@ export default class AdaEmbedView extends React.Component {
     }
     downloadTranscriptiOS(url){
         if(Platform.OS == 'ios'){
-            let RNFetchBlob = require('rn-fetch-blob')
-            RNFetchBlob = RNFetchBlob.default
-            const dirs = RNFetchBlob.fs.dirs
-            const options = {
-            fileCache: true,
-            path : dirs.DocumentDir + '/chat_transcript.txt'
-            };
-            RNFetchBlob.config(options)
-            .fetch("GET", url)
-            .then(res => {
-                RNFetchBlob.ios.previewDocument(res.data); 
-            }).catch((error) => {
-                console.log(error);
-            });
+            RNBlobUtil
+            // .config({
+            //     fileCache: true,
+            // })
+            .fetch('GET', url, {
+            // Authorization: `bearer access-token...`
+            })
+                .then((res) => {
+                    let status = res.info().status;
+
+                    if (status == 200) {
+                        // the conversion is done in native code
+                        let base64Str = res.base64()
+                        // the following conversions are done in js, it's SYNC
+                        let text = res.text()
+                        let json = res.json()
+                    }
+                    else {
+                        // handle other status codes
+                    }
+                })
+                // Something went wrong:
+                .catch((errorMessage, statusCode) => {
+                    console.log('statusCode:', statusCode);
+                    console.log('error:', errorMessage);
+                })
         }
     }
 

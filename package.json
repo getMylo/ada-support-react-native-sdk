@@ -16,12 +16,11 @@
   "peerDependencies": {
     "react": "*",
     "react-native": "*",
-    "react-native-webview": "^10.3.2",
-    "rn-fetch-blob": "^0.10.13"
+    "react-native-webview": "^10.3.2"
   },
   "dependencies": {
     "prop-types": "^15.7.2",
-    "rn-fetch-blob": "^0.10.13"
+    "react-native-blob-util": "0.16.2"
   },
   "devDependencies": {},
   "repository": {
