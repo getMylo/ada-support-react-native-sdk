@@ -11,7 +11,7 @@
     "react-native",
     "ada.support"
   ],
-  "author": "",
+  "author": "Mitch Aldrich",
   "license": "ISC",
   "peerDependencies": {
     "react": "*",
@@ -22,5 +22,14 @@
   "dependencies": {
     "prop-types": "^15.7.2",
     "rn-fetch-blob": "^0.10.13"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/getMylo/ada-support-react-native-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/getMylo/ada-support-react-native-sdk/issues"
+  },
+  "homepage": "https://github.com/getMylo/ada-support-react-native-sdk#readme"
 }
