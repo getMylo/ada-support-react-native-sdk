@@ -63,20 +63,19 @@ export default class AdaEmbedView extends React.Component {
     }
     downloadTranscriptiOS(url){
         if(Platform.OS == 'ios'){
-            let RNFetchBlob = require('rn-fetch-blob')
-            RNFetchBlob = RNFetchBlob.default
-            const dirs = RNFetchBlob.fs.dirs
-            const options = {
-            fileCache: true,
-            path : dirs.DocumentDir + '/chat_transcript.txt'
-            };
-            RNFetchBlob.config(options)
-            .fetch("GET", url)
-            .then(res => {
-                RNFetchBlob.ios.previewDocument(res.data); 
-            }).catch((error) => {
-                console.log(error);
-            });
+            RNBlobUtil
+            .config({
+                fileCache: true,
+            })
+            .fetch('GET', url)
+                .then((res) => {
+                    console.log('The file saved to ', res.path())
+                })
+                // Something went wrong:
+                .catch((errorMessage, statusCode) => {
+                    console.log('statusCode:', statusCode);
+                    console.log('error:', errorMessage);
+                })
         }
     }
 
