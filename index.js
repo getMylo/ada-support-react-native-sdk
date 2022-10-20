@@ -2,6 +2,7 @@ import React from "react";
 import {WebView} from 'react-native-webview';
 import PropTypes from 'prop-types';
 import {Platform, Linking} from 'react-native';
+import RNBlobUtil from 'react-native-blob-util';
 
 const EMBED_URL_ANDROID = "file:///android_asset/embed.html"
 const EMBED_URL = require('./android/src/main/assets/embed.html');
@@ -63,9 +64,12 @@ export default class AdaEmbedView extends React.Component {
     }
     downloadTranscriptiOS(url){
         if(Platform.OS == 'ios'){
+            let dirs = RNBlobUtil.fs.dirs;
+    
             RNBlobUtil
             .config({
                 fileCache: true,
+                path: dirs.DocumentDir + '/chat_transcript.txt'
             })
             .fetch('GET', url)
                 .then((res) => {
