@@ -4,6 +4,7 @@
   "description": "The Ada ReactNative is a small framework that is used to embed your Ada Chat bot into your ReactNative application.",
   "main": "index.js",
   "scripts": {
+    "postinstall": "npx patch-package",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
